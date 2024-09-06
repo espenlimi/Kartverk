@@ -22,7 +22,7 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public IActionResult ReceiveData(HomeViewModel model)
+    public IActionResult Index(HomeViewModel model)
     {
         model.Message = model.NewMessage;
         model.NewMessage = null;
