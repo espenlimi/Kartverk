@@ -29,7 +29,7 @@ public class HomeControllerUnitTests
         var model = new HomeViewModel { NewMessage = "New message" };
 
         // Act
-        var result = GetUnitUnderTest().ReceiveData(model);
+        var result = GetUnitUnderTest().Index(model);
 
         // Assert
         var viewResult = Assert.IsType<ViewResult>(result);
