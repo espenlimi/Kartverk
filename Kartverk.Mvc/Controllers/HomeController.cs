@@ -16,7 +16,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var model = new HomeViewModel();
-        model.Message = "Det tar en time å gå ned til Ørsta rådhus";
+        model.Message = "Det tar en time";
 
         return View("Index", model);
     }

@@ -19,7 +19,7 @@ public class HomeControllerUnitTests
         // Assert
         var viewResult = Assert.IsType<ViewResult>(result);
         var model = Assert.IsType<HomeViewModel>(viewResult.Model);
-        Assert.Equal("Det tar en time å gå ned til Ørsta rådhus", model.Message);
+        Assert.Equal("Det tar en time", model.Message);
     }
 
     [Fact]
