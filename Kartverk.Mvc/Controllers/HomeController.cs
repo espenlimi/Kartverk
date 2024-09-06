@@ -17,9 +17,16 @@ public class HomeController : Controller
     {
         var model = new HomeViewModel();
         model.Message = "Det tar en time å gå ned til Ørsta rådhus";
-        
-        return View("NotIndex",model);
-       
+
+        return View("Index", model);
+    }
+    
+    [HttpPost]
+    public IActionResult ReceiveData(HomeViewModel model)
+    {
+        model.Message = model.NewMessage;
+        model.NewMessage = null;
+        return View("Index", model);
     }
 
     public IActionResult Privacy()
