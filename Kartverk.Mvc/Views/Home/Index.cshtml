@@ -14,6 +14,14 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <form asp-controller="Home" asp-action="Index" method="post">
+    @Html.ValidationSummary()
+    @Html.DisplayNameFor(x => x.NewMessage)
+    @Html.ValidationMessageFor(x => x.NewMessage)
     @Html.TextBoxFor(x => x.NewMessage, new { @class = "form-control" })
+    
+    @Html.LabelFor(x=>x.Number)
+    @Html.ValidationMessageFor(x => x.Number)
+
+    @Html.TextBoxFor(x => x.Number, new { @class = "form-control" })
     <input type="submit" value="Send" />
 </form>

@@ -24,6 +24,9 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Index(HomeViewModel model)
     {
+        if(!ModelState.IsValid)
+            return View("Index", model);    
+
         model.Message = model.NewMessage;
         model.NewMessage = null;
         return View("Index", model);

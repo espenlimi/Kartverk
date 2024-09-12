@@ -34,3 +34,6 @@ body {
     background-color: red;
     border-radius: 50%;
 }
+.field-validation-error {
+    color:red
+}
