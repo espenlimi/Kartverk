@@ -1,0 +1,15 @@
+﻿@model MapCorrectionModel
+
+<form asp-action="save" method="post">
+    @Html.ValidationSummary()
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Beskrivelse</label>
+    <input asp-for="Description" class="form-control"  />
+        <label asp-for="X" class="form-label">X</label>
+    <input asp-for="X" class="form-control" />
+        <label asp-for="Y" class="form-label">Y</label>
+    <input asp-for="Y" class="form-control" />
+        <input type="submit" class="btn btn-primary" />
+   </div>
+
+</form>

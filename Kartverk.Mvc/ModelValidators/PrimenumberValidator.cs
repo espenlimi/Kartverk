@@ -2,10 +2,13 @@
 
 namespace Kartverk.Mvc.ModelValidators
 {
+
+
     public class PrimenumberValidator : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
+        
             var inputNumber = (int?)value;
             if (inputNumber == null)
                 return ValidationResult.Success;
