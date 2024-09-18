@@ -13,4 +13,5 @@ public class HomeViewModel
     [PrimenumberValidator]
     [DisplayName("Primtall(kan være null)")]
     public int? Number { get; set; }
+    public string Hidden { get; set; }
 }

@@ -17,13 +17,14 @@ public class HomeController : Controller
     {
         var model = new HomeViewModel();
         model.Message = "Det tar en time";
-
+ 
         return View("Index", model);
     }
     
     [HttpPost]
     public IActionResult Index(HomeViewModel model)
     {
+
         if(!ModelState.IsValid)
             return View("Index", model);    
 
