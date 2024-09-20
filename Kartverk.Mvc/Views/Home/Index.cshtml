@@ -30,21 +30,27 @@
 </form>
 @section Scripts {
     <script>
-        https://leafletjs.com/reference.html
-        https://www.geoman.io/docs/
+      //https://leafletjs.com/reference.html
+      //https://www.geoman.io/docs/
+
         function submitForm() {
-            var response = "";
+            var responseObject = {
+                points :[],
+                lines :[]
+            };
             var markers = L.PM.Utils.findLayers(map);
             markers.forEach((x) => {
                 if (x.options.pane === 'markerPane') { 
-                    response += "Found marker: " + x._latlng
+                    responseObject.points.push(x._latlng);
                 }
                 if (x.options.pane === 'overlayPane') { 
-                    response += "Found drawing: ";
-                    x._latlngs.forEach((lt) => { response += "---"+lt; });
+                    responseObject.lines.push(x._latlngs);
                 }
             });
-            document.getElementById("hiddenField").value = response;
+            
+            var jsonValue = JSON.stringify(responseObject);
+
+            document.getElementById("hiddenField").value = jsonValue;
             document.getElementById("mapInputForm").submit();
         }
 
@@ -56,6 +62,9 @@
             position: 'topleft',
             drawCircleMarker: false,
             rotateMode: false,
+            cutPolygon: false,
+            drawText: false
+
         });
    
     </script>

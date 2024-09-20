@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Kartverk.Mvc.Models;
+using System.Text.Json;
 
 namespace Kartverk.Mvc.Controllers;
 
@@ -17,17 +18,21 @@ public class HomeController : Controller
     {
         var model = new HomeViewModel();
         model.Message = "Det tar en time";
- 
+
         return View("Index", model);
     }
-    
+
     [HttpPost]
     public IActionResult Index(HomeViewModel model)
     {
 
-        if(!ModelState.IsValid)
-            return View("Index", model);    
+        if (!ModelState.IsValid)
+            return View("Index", model);
 
+        if (model.Hidden != null)
+        {
+            var mapData = JsonSerializer.Deserialize<MapData>(model.Hidden, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
         model.Message = model.NewMessage;
         model.NewMessage = null;
         return View("Index", model);
@@ -43,4 +48,15 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+}
+public class MapData
+{
+    public List<LatLng> Points { get; set; }
+    public List<List<LatLng>> Lines { get; set; }
+}
+
+public class LatLng
+{
+    public double Lat { get; set; }
+    public double Lng { get; set; }
 }

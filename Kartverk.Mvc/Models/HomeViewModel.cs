@@ -1,6 +1,8 @@
+using Kartverk.Mvc.Controllers;
 using Kartverk.Mvc.ModelValidators;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class HomeViewModel
 {
@@ -13,5 +15,7 @@ public class HomeViewModel
     [PrimenumberValidator]
     [DisplayName("Primtall(kan være null)")]
     public int? Number { get; set; }
+
+    
     public string Hidden { get; set; }
 }
