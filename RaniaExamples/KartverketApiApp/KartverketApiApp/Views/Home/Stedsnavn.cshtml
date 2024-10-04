@@ -1,0 +1,60 @@
+﻿@model KartverketApiApp.Models.StedsnavnResponse
+
+
+
+<h1>Stedsnavn Results</h1>
+
+@if (Model != null && Model.Navn.Any())
+{
+    foreach (var navn in Model.Navn)
+    {
+        <div>
+            <h2>@navn.Skrivemåte</h2> <!-- Display the name -->
+            <p><strong>Stedsnummer:</strong> @navn.Stedsnummer</p>
+            <p><strong>Navnestatus:</strong> @navn.Navnestatus</p>
+            <p><strong>Representasjonspunkt:</strong> @navn.Representasjonspunkt</p>
+            <p><strong>Stedstatus:</strong> @navn.Stedstatus</p>
+
+            <h3>Fylker</h3>
+            <ul>
+                @if (navn.Fylker != null && navn.Fylker.Any())
+                {
+                    foreach (var fylke in navn.Fylker)
+                    {
+                        <li>@fylke.Fylkesnavn (@fylke.Fylkesnummer)</li>
+                    }
+                }
+                else
+                {
+                    <li>No fylker found.</li>
+                }
+            </ul>
+
+            <h3>Kommuner</h3>
+            <ul>
+                @if (navn.Kommuner != null && navn.Kommuner.Any())
+                {
+                    foreach (var kommune in navn.Kommuner)
+                    {
+                        <li>@kommune.Kommunenavn (@kommune.Kommunenummer)</li>
+                    }
+                }
+                else
+                {
+                    <li>No kommuner found.</li>
+                }
+            </ul>
+        </div>
+    }
+}
+else
+{
+    <p>No stedsnavn information available.</p>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @ViewData["Error"]
+    </div>
+}

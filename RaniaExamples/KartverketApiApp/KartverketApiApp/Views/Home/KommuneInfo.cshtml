@@ -1,0 +1,29 @@
+﻿@model KartverketApiApp.Models.KommuneInfo
+
+<h2>Kommune Info</h2>
+<p>Kommune Name (Norsk): @Model.KommunenavnNorsk</p>
+<p>Kommune Number: @Model.Kommunenummer</p>
+<p>Fylkes Name: @Model.Fylkesnavn</p>
+<p>Fylkes Number: @Model.Fylkesnummer</p>
+<p>Samisk Forvaltningsområde: @(Model.SamiskForvaltningsomrade ? "Yes" : "No")</p>
+
+<h3>Valid Names</h3>
+<ul>
+    @if (Model.GyldigeNavn != null && Model.GyldigeNavn.Any())
+    {
+        foreach (var navn in Model.GyldigeNavn)
+        {
+            <li>@navn.Navn (@navn.Sprak)</li>
+        }
+    }
+    else
+    {
+        <li>No valid names found.</li>
+    }
+</ul>
+
+<h3>Avgrensningsboks</h3>
+<p>Type: @Model.Avgrensningsboks?.Type</p>
+
+<h3>Punkt i Område</h3>
+<p>Coordinates: @string.Join(", ", Model.PunktIOmrade?.Coordinates ?? new List<double>())</p>
