@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedreKartvertketApiWebApp", "BedreKartvertketApiWebApp\BedreKartvertketApiWebApp.csproj", "{13E387FD-0C47-4DF7-A87A-475E66D6EE49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13E387FD-0C47-4DF7-A87A-475E66D6EE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E387FD-0C47-4DF7-A87A-475E66D6EE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E387FD-0C47-4DF7-A87A-475E66D6EE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E387FD-0C47-4DF7-A87A-475E66D6EE49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1DCFFBE-9ADA-407E-A663-6D549C08A2E9}
+	EndGlobalSection
+EndGlobal
