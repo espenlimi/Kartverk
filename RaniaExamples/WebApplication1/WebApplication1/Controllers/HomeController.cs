@@ -7,6 +7,9 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     { 
         private readonly ILogger<HomeController> _logger;
+        // EF
+        private readonly ApplicationDbContext _context;
+
 
         // definerer en liste som en in-memory lagring 
         private static List<PositionModel> positions = new List<PositionModel>();
@@ -14,9 +17,10 @@ namespace WebApplication1.Controllers
         private static List<AreaChange> changes = new List<AreaChange>();
         
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
@@ -25,14 +29,14 @@ namespace WebApplication1.Controllers
             return View(positions);
         }
 
-        // action metode som håndterer GET forespørsel og viser RegistrationForm.cshtml view
+        // action metode som hÃ¥ndterer GET forespÃ¸rsel og viser RegistrationForm.cshtml view
         [HttpGet]
         public ViewResult RegistrationForm()
         {
             return View();
         }
 
-        // action metode som hånderer POST forespørsel og mottar data fra brukeren OGSÅ viser data oversikt
+        // action metode som hÃ¥nderer POST forespÃ¸rsel og mottar data fra brukeren OGSÃ… viser data oversikt
         [HttpPost]
         public ViewResult RegistrationForm(UserData userData)
         {
@@ -72,30 +76,62 @@ namespace WebApplication1.Controllers
             return View();
         }
         // Handle form submission to register a new change
-        [HttpPost]
-        public IActionResult RegisterAreaChange(string geoJson, string description)
+       [HttpPost]
+public IActionResult RegisterAreaChange(string geoJson, string description)
+{
+    // Without database connection
+    //var newChange = new AreaChange
+    //{
+    //    Id = Guid.NewGuid().ToString(),
+    //    GeoJson = geoJson,
+    //    Description = description
+    //};
+
+    // Save the change in the static in-memory list
+    //changes.Add(newChange);
+
+
+    try
+    {
+        // Insert data using EF
+        if (string.IsNullOrEmpty(geoJson) || string.IsNullOrEmpty(description))
         {
-            var newChange = new AreaChange
-            {
-                Id = Guid.NewGuid().ToString(),
-                GeoJson = geoJson,
-                Description = description
-            };
+            return BadRequest("Invalid data.");
+        }
 
-            // Save the change in the static in-memory list
-            changes.Add(newChange);
+        var newGeoChange = new GeoChange
+        {
+            GeoJson = geoJson,
+            Description = description
+        };
 
+        // Save to the database using EF
+        _context.GeoChanges.Add(newGeoChange);
+        _context.SaveChanges();
+        
             // Redirect to the overview of changes
             return RedirectToAction("AreaChangeOverview");
-        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}, Inner Exception: {ex.InnerException?.Message}");
+        throw;
+    }
+}
 
-        // Display the overview of registered changes
-        [HttpGet]
-        public IActionResult AreaChangeOverview()
-        {
-            return View(changes);
-        }
+// Display the overview of registered changes
+[HttpGet]
+public IActionResult AreaChangeOverview()
+{
+    // Minne
+    //return View(changes);
 
+    // EF
+    var changes_db = _context.GeoChanges.ToList();
+    return View(changes_db);
+
+   
+}
 
         public IActionResult Privacy()
         {
