@@ -1,0 +1,41 @@
+﻿@model WebApplication1.Data.GeoChange
+
+<h2>Edit Geo Change</h2>
+
+<form method="post" action="Edit">
+    <div>
+        <label>Geo Change ID:</label>
+        <input type="text" name="geoChangeId" value="@Model.Id" class="form-control" />
+    </div>
+
+    <div>
+        <label>Description:</label>
+        <input type="text" name="description" value="@Model.Description" class="form-control" />
+    </div>
+
+    <div>
+        <label>GeoJsonData:</label>
+        <textarea name="geoJsonData" class="form-control">@Model.GeoJson</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Save Changes</button>
+</form>
+
+
+@* <h2>Edit Geo Change</h2>
+
+<form method="post" action="Edit/@Model.Id">
+    <div>
+        <label>Description:</label>
+        <input type="text" name="description" value="@Model.Description" />
+    </div>
+    <div>
+        <label>GeoJsonData:</label>
+        <textarea name="geoJsonData">@Model.GeoJson</textarea>
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
+ *@
+
+
+

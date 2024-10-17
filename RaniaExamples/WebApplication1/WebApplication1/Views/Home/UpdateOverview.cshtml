@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebApplication1.Data.GeoChange>
+
+<h2>Geo Changes Overview</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>GeoJsonData</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var change in Model)
+        {
+            <tr>
+                <td>@change.Description</td>
+                <td>@change.GeoJson</td>
+                <td>
+                    <a href="/Home/Edit/@change.Id">Edit</a> |
+                    <a href="/Home/Delete/@change.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
