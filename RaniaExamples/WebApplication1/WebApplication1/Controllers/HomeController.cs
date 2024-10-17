@@ -8,9 +8,6 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     { 
         private readonly ILogger<HomeController> _logger;
-        // EF
-        private readonly ApplicationDbContext _context;
-
 
         // EF
         private readonly ApplicationDbContext _context;
@@ -22,19 +19,12 @@ namespace WebApplication1.Controllers
         private static List<PositionModel> positions = new List<PositionModel>();
         private static List<AreaChange> changes = new List<AreaChange>();
 
-<<<<<<< Updated upstream
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
-        {
-            _logger = logger;
-            _context = context;
-=======
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, GeoChangeService geoChangeService)
         {
             _logger = logger;
             _context = context;
             _geoChangeService = geoChangeService;
->>>>>>> Stashed changes
         }
 
         [HttpGet]
@@ -90,57 +80,9 @@ namespace WebApplication1.Controllers
             return View();
         }
         // Handle form submission to register a new change
-       [HttpPost]
-public IActionResult RegisterAreaChange(string geoJson, string description)
-{
-    // Without database connection
-    //var newChange = new AreaChange
-    //{
-    //    Id = Guid.NewGuid().ToString(),
-    //    GeoJson = geoJson,
-    //    Description = description
-    //};
-
-    // Save the change in the static in-memory list
-    //changes.Add(newChange);
-
-
-    try
-    {
-        // Insert data using EF
-        if (string.IsNullOrEmpty(geoJson) || string.IsNullOrEmpty(description))
+        [HttpPost]
+        public IActionResult RegisterAreaChange(string geoJson, string description)
         {
-<<<<<<< Updated upstream
-            return BadRequest("Invalid data.");
-        }
-
-        var newGeoChange = new GeoChange
-        {
-            GeoJson = geoJson,
-            Description = description
-        };
-
-        // Save to the database using EF
-        _context.GeoChanges.Add(newGeoChange);
-        _context.SaveChanges();
-        
-            // Redirect to the overview of changes
-            return RedirectToAction("AreaChangeOverview");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}, Inner Exception: {ex.InnerException?.Message}");
-        throw;
-    }
-}
-
-// Display the overview of registered changes
-[HttpGet]
-public IActionResult AreaChangeOverview()
-{
-    // Minne
-    //return View(changes);
-=======
             // Without database connection
             //var newChange = new AreaChange
             //{
@@ -262,14 +204,7 @@ public IActionResult AreaChangeOverview()
             _geoChangeService.DeleteGeoChange(id);
             return RedirectToAction("UpdateOverview");
         }
->>>>>>> Stashed changes
 
-    // EF
-    var changes_db = _context.GeoChanges.ToList();
-    return View(changes_db);
-
-   
-}
 
         public IActionResult Privacy()
         {
