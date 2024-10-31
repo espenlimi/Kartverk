@@ -6,10 +6,8 @@
 
 
 
-<div id="randomValue">
-</div>
-<div id="serverResponse">
-</div>
+<div id="randomValue"></div>
+<div id="serverResponse"></div>
 
 <input type="button" value="Load random value" onclick="loadRandomValue()" />
 <input type="button" value="Send data" onclick="sendDataToTheServer()" />
@@ -26,6 +24,7 @@
                 if (randomNumber === undefined) {
                   randomNumber = 1337;
               }
+
               var model =
               {
                   randomNumber: randomNumber,
@@ -39,6 +38,7 @@
                   },
                   body: JSON.stringify(model),
               };
+
               fetch(apiUrl, requestOptions)
                   .then(response => {
                       if (!response.ok) {
@@ -47,7 +47,7 @@
                       return response.json();
                   })
                   .then(data => {
-                      document.getElementById("serverResponse").innerHTML = data.Message;
+                      document.getElementById("serverResponse").innerHTML = data.message;
                   })
                   .catch(error => {
                       console.error

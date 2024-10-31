@@ -16,6 +16,7 @@ namespace Kartverk.Mvc.Api
             return Ok(value);
         }
 
+        [HttpPost]
         public IActionResult Post(ApiModel model)
         {
             model.Message = $"Hello from the server! {model.RandomNumber}";
