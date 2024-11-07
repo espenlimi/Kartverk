@@ -55,7 +55,9 @@ public class HomeController : Controller
 
     public IActionResult GetUser(string email)
     {
-        return Ok(new UserRepository().GetUser(email).GetAwaiter().GetResult());
+        var userRepository = new UserRepository();
+        var user = userRepository.GetUser(email).GetAwaiter().GetResult();
+        return Ok(user);
     }
 }
 public class MapData
