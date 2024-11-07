@@ -17,6 +17,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var model = new HomeViewModel();
+         var isAdmin = User.IsInRole("Admin");
         model.Message = "Det tar en time";
 
         return View("Index", model);
