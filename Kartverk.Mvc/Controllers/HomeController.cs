@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Kartverk.Mvc.Models;
 using System.Text.Json;
+using Kartverk.Mvc.Repositories;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Kartverk.Mvc.Controllers;
 
@@ -17,7 +19,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var model = new HomeViewModel();
-         var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole("Admin");
         model.Message = "Det tar en time";
 
         return View("Index", model);
@@ -48,6 +50,12 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+
+    public IActionResult GetUser(string email)
+    {
+        return Ok(new UserRepository().GetUser(email).GetAwaiter().GetResult());
     }
 }
 public class MapData
