@@ -1,5 +1,6 @@
 
 using Kartverk.Mvc.DataAccess;
+using Kartverk.Mvc.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 SetupAuthentication(builder);
 var app = builder.Build();

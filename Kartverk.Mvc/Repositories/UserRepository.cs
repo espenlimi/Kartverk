@@ -2,7 +2,7 @@
 
 namespace Kartverk.Mvc.Repositories
 {
-    public class UserRepository 
+    public class UserRepository : IUserRepository
     {
         public async Task<User> GetUser(string email)
         {

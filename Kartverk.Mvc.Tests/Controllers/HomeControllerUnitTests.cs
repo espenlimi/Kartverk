@@ -63,7 +63,7 @@ public class HomeControllerUnitTests
     private HomeController GetUnitUnderTest()
     {
         var logger = Substitute.For<ILogger<HomeController>>();
-        var controller =  new HomeController(logger);
+        var controller =  new HomeController(logger,null);
         controller.ControllerContext.HttpContext = new DefaultHttpContext();
         return controller;
     }

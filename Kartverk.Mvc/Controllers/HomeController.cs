@@ -4,16 +4,19 @@ using Kartverk.Mvc.Models;
 using System.Text.Json;
 using Kartverk.Mvc.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Kartverk.Mvc.DataAccess.Entities;
 
 namespace Kartverk.Mvc.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> logger;
+    private readonly IUserRepository userRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
     {
         this.logger = logger;
+        this.userRepository = userRepository;
     }
 
     public IActionResult Index()
@@ -53,12 +56,12 @@ public class HomeController : Controller
     }
 
 
-    public IActionResult GetUser(string email)
-    {
-        var userRepository = new UserRepository();
-        var user = userRepository.GetUser(email).GetAwaiter().GetResult();
+    public async Task<IActionResult> GetUser(string email)
+    { 
+        User user = await  userRepository.GetUser(email);
         return Ok(user);
     }
+    
 }
 public class MapData
 {
