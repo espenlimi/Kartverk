@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: dataBASE123
+      MYSQL_DATABASE: geochangesdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: dataBASE123
+    ports:
+      - "3309:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - backend
+
+  webapplication1:
+    build:
+      context: .
+      dockerfile: WebApplication1/Dockerfile
+    image: webapplication1
+    ports:
+      - "5000:80"  # Expose the app on port 5000
+    depends_on:
+      - mariadb
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=mariadb;Database=geochangesdb;User=root;Password=dataBASE123;"
+    networks:
+      - backend
+    command: bash -c "for i in \$(seq 1 30); do dotnet ef database update && break || (echo 'Waiting for DB...'; sleep 5); done; dotnet WebApplication1.dll"  # Apply migrations and run the app
+
+volumes:
+  mariadb_data:
+
+networks:
+  backend:
